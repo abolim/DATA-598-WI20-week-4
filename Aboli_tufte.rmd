@@ -1,0 +1,59 @@
+---
+title: "Tufte Aboli Activity"
+subtitle: "An implementation in R Markdown"
+author: "JJ Allaire and Yihui Xie"
+date: "`r Sys.Date()`"
+output:
+  tufte::tufte_html: default
+  tufte::tufte_handout:
+    citation_package: natbib
+    latex_engine: xelatex
+  tufte::tufte_book:
+    citation_package: natbib
+    latex_engine: xelatex
+bibliography: datascience.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+library(tufte)
+# invalidate cache when the tufte version changes
+knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+options(htmltools.dir.version = FALSE)
+```
+
+
+``` {r starwars-plot, fig.cap = "A scatter plot using Starwars data"}
+library(tidyverse)
+starwars %>%
+  filter(species == "Human") %>%
+  ggplot()+
+  aes(x = height,
+      y = mass) +
+      geom_point()
+```
+
+```{r starwars-tbl}
+starwars %>%
+  filter(species == "Human") %>%
+  select(name,
+  height,
+  mass,
+  homeworld) %>%
+  knitr::kable(caption = "A table using Starwars data")
+```
+
+
+View table \@ref(tab:starwars-tbl)...
+
+View scatter plot \@ref(fig:starwars-plot)...
+
+@van2016data has a good research paper on Data Science in Action.
+
+@stodden2018enabling says useful things about...
+
+# References cited
+
+
+
+

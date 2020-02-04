@@ -1,0 +1,17 @@
+---
+title: "My 2nd advanced RMD Document"
+author: "Aboli Moroney"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: bookdown::html_document2
+bibliography: example.bib
+---
+``` {r starwars-plot, fig.cap = "A ggplot of starwars stuff"}
+library(tidyverse)
+starwars %>%
+  filter(species == "Human") %>%
+  ggplot()+
+  aes(x = height,
+      y = mass) +
+      geom_point()
+```
+
