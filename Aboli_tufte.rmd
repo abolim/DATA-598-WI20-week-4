@@ -1,6 +1,6 @@
 ---
-title: "Star Wars Analysis"
-subtitle: "Week 4 - An implementation of advanced R Markdown using Tufte Template"
+title: "A Star Wars Story"
+subtitle: "An implementation of advanced R Markdown using Tufte Template"
 author: "Aboli Moroney"
 date: "`r Sys.Date()`"
 output:
@@ -11,10 +11,11 @@ output:
   tufte::tufte_book:
     citation_package: natbib
     latex_engine: xelatex
-bibliography: datascience.bib
+bibliography: starwarscited.bib
 link-citations: yes
 ---
-## Chunk Setup with 3+ Settings
+
+# Setup chunk with 3+ settings and using Tufte template
 ```{r setup, include = TRUE, echo = TRUE, warning = FALSE, message = FALSE}
 library(tufte)
 knitr::opts_chunk$set(tidy = FALSE, 
@@ -29,16 +30,27 @@ options(htmltools.dir.version = FALSE)
 knitr::read_chunk("externalRcode.R")
 ```
 
-## External Code
+# Code from an external R script file and knitr::read_chunk()
 ```{r}
 knitr::read_chunk("externalRcode.R")
 ```
 
-```{r yvars, echo=TRUE, include=TRUE}
-# Using variable from external code
+```{r makemyplot, echo = TRUE, include = TRUE}
+
 ```
 
-## Starwars Plot using Tidyverse
+# Display logo with knitr caching on at least one chunk
+
+```{r, myfig, fig.cap = "Starwars Logo", cache = TRUE, echo = FALSE}
+knitr::opts_chunk$set(cache.extra = R.version.string,
+                      cache.extra = R.version,
+                      cache.comments =  FALSE)
+# cached results are only applicable to a specific version of R
+knitr::include_graphics("https://lumiere-a.akamaihd.net/v1/images/og-generic_02031d2b.png?region=0%2C0%2C1200%2C1200")
+```
+
+
+# Plot using Starwars dataset and Tidyverse package
 ``` {r starwars-plot, fig.cap = "A scatter plot using Starwars data"}
 library(tidyverse)
 
@@ -50,7 +62,7 @@ starwars %>%
       geom_point()
 ```
 
-## Starwars Table
+# Table using Starwars dataset and Tidyverse package
 ```{r starwars-tbl}
 starwars %>%
   filter(species == "Human") %>%
@@ -61,34 +73,13 @@ starwars %>%
   knitr::kable(caption = "A table using Starwars data")
 ```
 
-## References Cited
+# Two in-text citations for Star Wars using bibtex
 
-@van2016data has a good research paper on Data Science in Action.
+@lucas1977star - a book on Star Wars.
 
-@stodden2018enabling says useful things about...
+@brodeur2016star - an article on Star Wars. 
 
-## External R Script
-
-```{r set-up-and-print-the-data, eval = TRUE, echo = TRUE, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-knitr::read_chunk("externalRcode.R")
-```
-
-```{r RunCodeChunkShowAll, echo = TRUE}
-source('externalRcode.R')
-```
-
-## Caching
-
-```{r, myfig, fig.cap = "Starwars Logo", cache=TRUE, echo = FALSE}
-knitr::opts_chunk$set(cache.extra = R.version.string,
-                      cache.extra = R.version,
-                      cache.comments =  FALSE)
-# cached results are only applicable to a specific version of R
-knitr::include_graphics("https://lumiere-a.akamaihd.net/v1/images/og-generic_02031d2b.png?region=0%2C0%2C1200%2C1200")
-```
-
-
+# Conclusion
 
 > "Do. Or do not. There is no try"
 >
