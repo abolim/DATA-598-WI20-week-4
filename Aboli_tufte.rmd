@@ -1,6 +1,6 @@
 ---
-title: "R Markdown Activity - Week 4"
-subtitle: "An implementation in R Markdown using Tufte Template"
+title: "Star Wars Analysis"
+subtitle: "Week 4 - An implementation of advanced R Markdown using Tufte Template"
 author: "Aboli Moroney"
 date: "`r Sys.Date()`"
 output:
@@ -14,23 +14,31 @@ output:
 bibliography: datascience.bib
 link-citations: yes
 ---
-
-```{r setup, eval = TRUE, include=FALSE}
+## Chunk Setup with 3+ Settings
+```{r setup, include = TRUE, echo = TRUE, warning = FALSE, message = FALSE}
 library(tufte)
-# invalidate cache when the tufte version changes
-# Setting up a chunk with 3+ setting
 knitr::opts_chunk$set(tidy = FALSE, 
                       cache.extra = packageVersion('tufte'), 
                       cache.comments = FALSE,
                       collapse = TRUE,
                       echo = TRUE,
+                      include = TRUE,
                       warning = TRUE,
                       message = TRUE)
 options(htmltools.dir.version = FALSE)
 knitr::read_chunk("externalRcode.R")
 ```
 
-# Starwars Plot
+## External Code
+```{r}
+knitr::read_chunk("externalRcode.R")
+```
+
+```{r yvars, echo=TRUE, include=TRUE}
+# Using variable from external code
+```
+
+## Starwars Plot using Tidyverse
 ``` {r starwars-plot, fig.cap = "A scatter plot using Starwars data"}
 library(tidyverse)
 
@@ -42,7 +50,7 @@ starwars %>%
       geom_point()
 ```
 
-# Starwars Table
+## Starwars Table
 ```{r starwars-tbl}
 starwars %>%
   filter(species == "Human") %>%
@@ -53,13 +61,13 @@ starwars %>%
   knitr::kable(caption = "A table using Starwars data")
 ```
 
-# References Cited
+## References Cited
 
 @van2016data has a good research paper on Data Science in Action.
 
 @stodden2018enabling says useful things about...
 
-# External R Code
+## External R Script
 
 ```{r set-up-and-print-the-data, eval = TRUE, echo = TRUE, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -70,5 +78,19 @@ knitr::read_chunk("externalRcode.R")
 source('externalRcode.R')
 ```
 
+## Caching
 
+```{r, myfig, fig.cap = "Starwars Logo", cache=TRUE, echo = FALSE}
+knitr::opts_chunk$set(cache.extra = R.version.string,
+                      cache.extra = R.version,
+                      cache.comments =  FALSE)
+# cached results are only applicable to a specific version of R
+knitr::include_graphics("https://lumiere-a.akamaihd.net/v1/images/og-generic_02031d2b.png?region=0%2C0%2C1200%2C1200")
+```
+
+
+
+> "Do. Or do not. There is no try"
+>
+> `r tufte::quote_footer('--- Yoda')`
 
