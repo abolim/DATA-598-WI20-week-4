@@ -1,7 +1,7 @@
 ---
-title: "Tufte Aboli Activity"
-subtitle: "An implementation in R Markdown"
-author: "JJ Allaire and Yihui Xie"
+title: "R Markdown Activity - Week 4"
+subtitle: "An implementation in R Markdown using Tufte Template"
+author: "Aboli Moroney"
 date: "`r Sys.Date()`"
 output:
   tufte::tufte_html: default
@@ -15,16 +15,25 @@ bibliography: datascience.bib
 link-citations: yes
 ---
 
-```{r setup, include=FALSE}
+```{r setup, eval = TRUE, include=FALSE}
 library(tufte)
 # invalidate cache when the tufte version changes
-knitr::opts_chunk$set(tidy = FALSE, cache.extra = packageVersion('tufte'))
+# Setting up a chunk with 3+ setting
+knitr::opts_chunk$set(tidy = FALSE, 
+                      cache.extra = packageVersion('tufte'), 
+                      cache.comments = FALSE,
+                      collapse = TRUE,
+                      echo = TRUE,
+                      warning = TRUE,
+                      message = TRUE)
 options(htmltools.dir.version = FALSE)
+knitr::read_chunk("externalRcode.R")
 ```
 
-
+# Starwars Plot
 ``` {r starwars-plot, fig.cap = "A scatter plot using Starwars data"}
 library(tidyverse)
+
 starwars %>%
   filter(species == "Human") %>%
   ggplot()+
@@ -33,6 +42,7 @@ starwars %>%
       geom_point()
 ```
 
+# Starwars Table
 ```{r starwars-tbl}
 starwars %>%
   filter(species == "Human") %>%
@@ -43,17 +53,22 @@ starwars %>%
   knitr::kable(caption = "A table using Starwars data")
 ```
 
-
-View table \@ref(tab:starwars-tbl)...
-
-View scatter plot \@ref(fig:starwars-plot)...
+# References Cited
 
 @van2016data has a good research paper on Data Science in Action.
 
 @stodden2018enabling says useful things about...
 
-# References cited
+# External R Code
 
+```{r set-up-and-print-the-data, eval = TRUE, echo = TRUE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::read_chunk("externalRcode.R")
+```
+
+```{r RunCodeChunkShowAll, echo = TRUE}
+source('externalRcode.R')
+```
 
 
 
